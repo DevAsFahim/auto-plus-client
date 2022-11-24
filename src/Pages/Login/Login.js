@@ -6,7 +6,62 @@ import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    
+    // const [success, setSuccess] = useState(false);
+    // const [error, setError] = useState(false);
+    const { userLogIn, createUserWithGoogle, createUserWithGithub } = useContext(AuthContext);
+    // const navigate = useNavigate();
+    // const location = useLocation();
+
+    // const from = location.state?.from?.pathname || '/';
+
+
+    // log in user with email and password
+    const handleLogIn = (event) => {
+        event.preventDefault()
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        // setSuccess(false)
+        // setError(false)
+
+        userLogIn(email, password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                form.reset()
+                // navigate(from , {replace: true} )
+                // setSuccess(true)
+            })
+            .catch((error) => {
+                // setError(error.message)
+                console.error(error);
+            });
+    }
+
+    // sign in with google
+    const handleGoogleUser = () => {
+        createUserWithGoogle()
+        .then((result) => {
+            const user = result.user;
+            // navigate("/")
+            console.log(user);
+        }).catch((error) => {
+            // setError(error.message)
+            console.error(error);
+        });
+    }
+
+    // // sign in with github
+    // const handleGithubUser = () => {
+    //     createUserWithGithub()
+    //     .then((result) => {
+    //         const user = result.user;
+    //         navigate("/")
+    //         console.log(user);
+    //     }).catch((error) => {
+    //         setError(error.message)
+    //     });
+    // }
 
     return (
         <div className="connect p-5">
