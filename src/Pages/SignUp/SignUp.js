@@ -5,7 +5,53 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const SignUp = () => {
+    // const [success, setSuccess] = useState(false);
+    // const [error, setError] = useState(false);
     
+    const {createUser} = useContext(AuthContext)
+
+
+    // sign in with email and password 
+    const handleCreateUser = (event) => {
+        event.preventDefault()
+        const form = event.target;
+        const name = form.name.value;
+        const photoURL = form.photoURL.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        // setSuccess(false)
+        // setError(false)
+
+        // if (password.length < 6) {
+        //     setError('password must be 6 charecter or more')
+        //     return;
+        // }
+
+
+        createUser(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                // setSuccess(true)
+                form.reset()
+                // handleUpdateUserProfile(name, photoURL);
+            })
+            .catch((error) => {
+                // setError(error.message)
+                console.error(error);
+            });
+    }
+
+    // const handleUpdateUserProfile = (name, photoURL) => {
+    //     const profile = {
+    //         displayName: name,
+    //         photoURL: photoURL
+    //     }
+    //     updateUserProfile(profile)
+    //         .then(() => { })
+    //         .catch(error => console.error(error))
+    // }
+
 
     return (
         <div className="connect p-5">
