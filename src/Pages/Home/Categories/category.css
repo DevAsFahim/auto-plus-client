@@ -1,0 +1,12 @@
+.category {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.category .icon {
+    padding: 10px;
+    border-radius: 50%;
+    transition: .4s;
+}
+.category:hover .icon {
+    background-color: rgb(121, 114, 230);
+    color: #fff;
+}
