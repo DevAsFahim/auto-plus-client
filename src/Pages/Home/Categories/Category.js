@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './category.css'
 
 const Category = ({ category }) => {
-    const { name, description, category_id } = category
+    const { name, description, category_id } = category;
     return (
         <div className='overflow-hidden rounded-xl py-12 px-10 mt-9 min-h-[300px] category'>
             <div className='flex justify-between mb-3'>
