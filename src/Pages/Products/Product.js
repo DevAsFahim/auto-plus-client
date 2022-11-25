@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Product.css';
 import { FaCheckCircle, FaMapMarkedAlt, FaStopwatch } from 'react-icons/fa';
 
-const Product = ({ product }) => {
+const Product = ({ product,setSingleProduct }) => {
     const { img, location, name, originalPrice, postTime, resalePrice, sellerEmail, sellerImg, sellerName, yearsUsed, verified } = product;
+    
 
     return (
         <div className='product'>
@@ -33,7 +34,7 @@ const Product = ({ product }) => {
                 <p className='text-xl '>Resale Price: <span className="font-bold text-2xl text-orange-500"> ${resalePrice}</span></p>
                 <p>{Response}</p>
                 <div>
-                    <button className='btn btn-primary w-full mt-9'>Book Now</button>
+                    <label onClick={() => setSingleProduct(product)} htmlFor="productModal" className="btn btn-primary w-full mt-9" >Book Now</label>
                 </div>
             </div>
         </div>

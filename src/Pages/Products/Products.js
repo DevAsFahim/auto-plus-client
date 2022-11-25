@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import Spinner from '../Shared/Spinner/Spinner';
 import Product from './Product';
+import ProductModal from './ProductModal/ProductModal';
 
 const Products = () => {
+    const [singleProduct, setSingleProduct] = useState('');
     const products = useLoaderData();
+    const {user, loading} = useContext(AuthContext)
+
+    if(loading){
+        return <Spinner></Spinner>
+    }
+    
 
     return (
         <div className='py-20 container m-auto px-3'>
@@ -13,9 +23,14 @@ const Products = () => {
                     products.map(product => <Product
                         key={product._id}
                         product={product}
+                        setSingleProduct={setSingleProduct}
                     ></Product>)
                 }
             </div>
+            <ProductModal
+                singleProduct={singleProduct}
+                user={user}
+            ></ProductModal>
         </div>
     );
 };
