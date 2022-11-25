@@ -1,14 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import Spinner from '../../Shared/Spinner/Spinner';
 import Category from './Category';
 
 const Categories = () => {
 
-    const {data: categories = []} = useQuery({
+    const {data: categories = [], isLoading} = useQuery({
         queryKey: ['categories'],
         queryFn: () => fetch('http://localhost:5000/categories')
         .then(res => res.json())
     })
+
+    if(isLoading) {
+        return <Spinner></Spinner>
+    }
 
     return (
         <div className='container categories py-20 px-4 m-auto'>

@@ -9,7 +9,7 @@ const Category = ({ category }) => {
         <div className='overflow-hidden rounded-xl py-12 px-10 mt-9 min-h-[300px] category'>
             <div className='flex justify-between mb-3'>
                 <span></span>
-                <Link to={`cars/${category_id}`} className='text-3xl icon'><FaArrowRight></FaArrowRight></Link>
+                <Link to={`category/${category_id}`} className='text-3xl icon'><FaArrowRight></FaArrowRight></Link>
             </div>
             <h4 className="text-2xl font-bold">{name}</h4>
             <p>{description}</p>
