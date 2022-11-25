@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 import { FaGoogle } from 'react-icons/fa';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import { toast } from 'react-toastify';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    // const [success, setSuccess] = useState(false);
-    // const [error, setError] = useState(false);
     const { userLogIn, createUserWithGoogle, createUserWithGithub } = useContext(AuthContext);
     // const navigate = useNavigate();
     // const location = useLocation();
@@ -21,8 +20,6 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        // setSuccess(false)
-        // setError(false)
 
         userLogIn(email, password)
             .then((result) => {
@@ -30,25 +27,26 @@ const Login = () => {
                 console.log(user);
                 form.reset()
                 // navigate(from , {replace: true} )
-                // setSuccess(true)
+                toast.success('Logged in successfully')
             })
             .catch((error) => {
-                // setError(error.message)
-                console.error(error);
+                toast.error(error.message)
             });
     }
 
     // sign in with google
     const handleGoogleUser = () => {
         createUserWithGoogle()
-        .then((result) => {
-            const user = result.user;
-            // navigate("/")
-            console.log(user);
-        }).catch((error) => {
-            // setError(error.message)
-            console.error(error);
-        });
+            .then((result) => {
+                const user = result.user;
+                // navigate("/")
+                console.log(user);
+                toast.success('Logged in successfully')
+            }).catch((error) => {
+                // setError(error.message)
+                console.error(error);
+                toast.error(error.message)
+            });
     }
 
     // // sign in with github
@@ -81,8 +79,6 @@ const Login = () => {
                         <div className="mb-3 form-control">
                             <input type="password" name='password' className="input input-bordered" placeholder="Your Password" required />
                         </div>
-                        {/* {success && <p className="text-success">Successfully Logged in</p>}
-                                    {error && <p className="text-danger">{error}</p>} */}
                         <button className="btn default-btn mb-8 d-block w-full">Login</button>
                     </form>
                     <button onClick={handleGoogleUser} className="btn mt-2 btn-outline d-block w-full"> <FaGoogle className='mr-3'></FaGoogle> Login with Google</button>

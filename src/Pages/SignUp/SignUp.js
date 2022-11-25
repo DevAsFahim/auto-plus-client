@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 // import { useState } from 'react';
 // import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const SignUp = () => {
@@ -32,12 +33,14 @@ const SignUp = () => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(user);
+                toast.success('Successfully account created')
                 // setSuccess(true)
                 form.reset()
                 // handleUpdateUserProfile(name, photoURL);
             })
             .catch((error) => {
                 // setError(error.message)
+                
                 console.error(error);
             });
     }
