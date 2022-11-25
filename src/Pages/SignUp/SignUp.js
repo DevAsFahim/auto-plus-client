@@ -1,59 +1,54 @@
-import React, { useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
 // import { useState } from 'react';
 // import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import Spinner from '../Shared/Spinner/Spinner';
 
 const SignUp = () => {
-    // const [success, setSuccess] = useState(false);
-    // const [error, setError] = useState(false);
-    
-    const {createUser} = useContext(AuthContext)
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { createUser, updateUserProfile } = useContext(AuthContext);
+
+    const imageHostKey = process.env.REACT_APP_imgbb_key;
 
 
     // sign in with email and password 
-    const handleCreateUser = (event) => {
-        event.preventDefault()
-        const form = event.target;
-        const name = form.name.value;
-        const photoURL = form.photoURL.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        // setSuccess(false)
-        // setError(false)
-
-        // if (password.length < 6) {
-        //     setError('password must be 6 charecter or more')
-        //     return;
-        // }
-
-
-        createUser(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
-                toast.success('Successfully account created')
-                // setSuccess(true)
-                form.reset()
-                // handleUpdateUserProfile(name, photoURL);
+    const handleCreateUser = (data) => {
+        const image = data.image[0]
+        const formData = new FormData();
+        formData.append('image', image)
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                createUser(data.email, data.password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        console.log(user);
+                        toast.success('Successfully account created')
+                        handleUpdateUserProfile(data.name, imgData.data.url);
+                    })
+                    .catch((error) => {
+                        toast.error(error.message)
+                    });
             })
-            .catch((error) => {
-                // setError(error.message)
-                
-                console.error(error);
-            });
     }
 
-    // const handleUpdateUserProfile = (name, photoURL) => {
-    //     const profile = {
-    //         displayName: name,
-    //         photoURL: photoURL
-    //     }
-    //     updateUserProfile(profile)
-    //         .then(() => { })
-    //         .catch(error => console.error(error))
-    // }
+    const handleUpdateUserProfile = (name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
+        }
+        updateUserProfile(profile)
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
 
 
     return (
@@ -67,21 +62,23 @@ const SignUp = () => {
                 </div>
                 <div className="connect_form px-7">
                     <h1 className='text-4xl font-bold'>Sign Up</h1>
-                    <form onSubmit={handleCreateUser}>
+                    <form onSubmit={handleSubmit(handleCreateUser)}>
                         <div className="mb-3 form-control">
-                            <input type="text" name='name' className="input input-bordered" placeholder="Your Full Name" required />
+                            <input type="text" {...register("name", { required: true })} className="input input-bordered" placeholder="Your Full Name" />
                         </div>
                         <div className="mb-3 form-control">
-                            <input type="text" name='photoURL' className="input input-bordered" placeholder="Photo URL" required />
+                            <input type="email" {...register("email", { required: true })} className=" input input-bordered" placeholder="Your Email" />
                         </div>
                         <div className="mb-3 form-control">
-                            <input type="email" name='email' className=" input input-bordered" placeholder="Your Email" required />
+                            <input type="password" {...register("password", { required: true })} className="input input-bordered" placeholder="Your Password" />
                         </div>
+                        <select defaultValue='user' {...register("userType", { required: true })} className="select select-bordered w-full mb-3">
+                            <option value='user' >User</option>
+                            <option value='seller'>Seller</option>
+                        </select>
                         <div className="mb-3 form-control">
-                            <input type="password" name='password' className="input input-bordered" placeholder="Your Password" required />
+                            <input type="file" {...register("image", { required: true })} className="input input_photo input-bordered" placeholder="Photo URL" />
                         </div>
-                        {/* {success && <p className="text-success">Successfully Logged in</p>}
-                                    {error && <p className="text-danger">{error}</p>} */}
                         <button className="btn default-btn d-block w-full mt-4">Sign Up</button>
                     </form>
                 </div>

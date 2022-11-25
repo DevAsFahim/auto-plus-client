@@ -20,6 +20,15 @@
     margin-bottom: 30px;
     color: #000;
 }
+.connect_form .input_photo::file-selector-button {
+    border-radius: 20px;
+    margin-top: 9px;
+    color: green;
+    font-weight: bold;
+    padding: 0 10px;
+    border: 2px dashed rgb(0, 255, 76);
+    background: transparent;
+}
 
 @media screen and (max-width: 500px) {
     .page_banner h1 {
