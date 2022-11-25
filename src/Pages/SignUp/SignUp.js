@@ -3,14 +3,14 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 // import { useState } from 'react';
 // import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
-import Spinner from '../Shared/Spinner/Spinner';
 
 const SignUp = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
+    const navigate = useNavigate()
 
     const imageHostKey = process.env.REACT_APP_imgbb_key;
 
@@ -27,16 +27,40 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(imgData => {
-                createUser(data.email, data.password)
-                    .then((userCredential) => {
-                        const user = userCredential.user;
-                        console.log(user);
-                        toast.success('Successfully account created')
-                        handleUpdateUserProfile(data.name, imgData.data.url);
+                if (imgData.success) {
+                    // create and update user image and name
+                    createUser(data.email, data.password)
+                        .then((userCredential) => {
+                            const user = userCredential.user;
+                            console.log(user);
+                            toast.success('Successfully account created')
+                            handleUpdateUserProfile(data.name, imgData.data.url);
+                        })
+                        .catch((error) => {
+                            toast.error(error.message)
+                        });
+                    // save users to the database
+                    const user = {
+                        name: data.name,
+                        email: data.email,
+                        img: imgData.data.url,
+                        userType: data.userType
+                    }
+                    fetch('http://localhost:5000/users', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(user)
                     })
-                    .catch((error) => {
-                        toast.error(error.message)
-                    });
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.acknowledged){
+                            navigate('/')
+                        }
+                    })
+                }
+
             })
     }
 
