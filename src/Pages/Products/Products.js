@@ -30,6 +30,7 @@ const Products = () => {
             <ProductModal
                 singleProduct={singleProduct}
                 user={user}
+                setSingleProduct={setSingleProduct}
             ></ProductModal>
         </div>
     );

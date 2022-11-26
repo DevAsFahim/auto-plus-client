@@ -1,8 +1,8 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 
-const ProductModal = ({ singleProduct, user }) => {
-    const {name: productName, resalePrice} = singleProduct;
-
+const ProductModal = ({ singleProduct, user, setSingleProduct }) => {
+    const {name: productName, resalePrice, categoryId, sellerEmail, sellerImg, sellerName, sellerPhone} = singleProduct;
     
     const handleBooking = event => {
         event.preventDefault();
@@ -10,36 +10,41 @@ const ProductModal = ({ singleProduct, user }) => {
         const name = form.name.value;
         const email = form.email.value;
         const phone = form.phone.value;
+        const resalePrice = form.resalePrice.value;
+        const meetingLocation = form.meetingLocation.value;
 
-        // const booking = {
-        //     appointmentDate: date,
-        //     treatment: treatmentName,
-        //     patient: name,
-        //     slot,
-        //     email,
-        //     phone,
-        //     price
-        // }
+        const booking = {
+            email,
+            phone,
+            name,
+            resalePrice,
+            meetingLocation,
+            productName,
+            categoryId,
+            sellerEmail,
+            sellerImg,
+            sellerName,
+            sellerPhone
+        }
 
-        // fetch('http://localhost:5000/bookings', {
-        //     method: 'POST',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(booking)
-        // })
-        // .then(res => res.json())
-        // .then(data => {
-        //     console.log(data);
-        //     if(data.acknowledged){
-        //         setTreatment(null)
-        //         toast.success('booking confirmed')
-        //         refetch()
-        //     }
-        //     else{
-        //         toast.error(data.message)
-        //     }
-        // })
+        // send booking information to database
+        fetch('http://localhost:5000/bookings', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.acknowledged){
+                toast.success('booking confirmed')
+                setSingleProduct('')
+            }
+            else{
+                toast.error(data.message)
+            }
+        })
 
     }
 
@@ -55,9 +60,9 @@ const ProductModal = ({ singleProduct, user }) => {
                         <input name='name' type="text" placeholder="Your Name" defaultValue={user?.displayName} disabled className="input w-full input-bordered" />
                         <input name='email' type="email" placeholder="Your Email" defaultValue={user?.email} disabled className="input w-full input-bordered" />
                         <input name='resalePrice' type="text" value={`$ ${resalePrice}`} disabled className="input w-full input-bordered" />
-                        <input name='phone' type="text" placeholder="Your Phone" className="input w-full input-bordered" />
-                        <input name='meetingLocation' type="text" placeholder="Your Phone" className="input w-full input-bordered" />
-                        <input type="submit" value="Submit" className='input w-full btn btn-accent' />
+                        <input name='phone' type="text" placeholder="Your Phone" className="input w-full input-bordered" required />
+                        <input name='meetingLocation' type="text" placeholder="Location" className="input w-full input-bordered" required />
+                        <input type="submit" value="Submit" className='input w-full btn btn-accent font-bold' />
                     </form>
                 </div>
             </div>
