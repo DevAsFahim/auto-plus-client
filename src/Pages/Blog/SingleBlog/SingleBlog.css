@@ -1,0 +1,10 @@
+.single_blog .details_container {
+    width: 77%;
+    margin: auto;
+    padding: 60px 16px;
+    margin-top: 60px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.details_container .service_img {
+    padding: 25px;
+}

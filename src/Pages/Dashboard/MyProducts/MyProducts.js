@@ -34,7 +34,7 @@ const MyProducts = () => {
     const handleAdvertiseProduct = id => {
         console.log(id);
         fetch(`http://localhost:5000/advertise/${id}`, {
-            method: 'PATCH',
+            method: 'PUT',
             // headers: {
             //     authorization: `bearer ${localStorage.getItem('accessToken')}`
             // }

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const { userLogIn, createUserWithGoogle, createUserWithGithub } = useContext(AuthContext);
+    const { userLogIn, createUserWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -26,7 +26,7 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 form.reset()
-                navigate(from , {replace: true} )
+                navigate(from, { replace: true })
                 toast.success('Logged in successfully')
             })
             .catch((error) => {
@@ -38,28 +38,33 @@ const Login = () => {
     const handleGoogleUser = () => {
         createUserWithGoogle()
             .then((result) => {
-                const user = result.user;
-                // navigate("/")
-                console.log(user);
-                toast.success('Logged in successfully')
+                const loggedUser = result.user;
+                const user = {
+                    name: loggedUser.displayName,
+                    email: loggedUser.email,
+                    img: loggedUser.photoURL,
+                    userType: 'user'
+                }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.acknowledged) {
+                            navigate("/")
+                            toast.success('Logged in successfully')
+                        }
+                    })
             }).catch((error) => {
                 // setError(error.message)
                 console.error(error);
                 toast.error(error.message)
             });
     }
-
-    // // sign in with github
-    // const handleGithubUser = () => {
-    //     createUserWithGithub()
-    //     .then((result) => {
-    //         const user = result.user;
-    //         navigate("/")
-    //         console.log(user);
-    //     }).catch((error) => {
-    //         setError(error.message)
-    //     });
-    // }
 
     return (
         <div className="connect p-5">
