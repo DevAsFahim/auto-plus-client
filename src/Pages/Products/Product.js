@@ -1,25 +1,44 @@
 import React from 'react';
 import './Product.css';
 import { FaCheckCircle, FaMapMarkedAlt, FaStopwatch } from 'react-icons/fa';
+import { useQuery } from '@tanstack/react-query';
+import Spinner from '../Shared/Spinner/Spinner';
 
-const Product = ({ product,setSingleProduct }) => {
+const Product = ({ product, setSingleProduct }) => {
     const { img, location, name, originalPrice, postTime, resalePrice, sellerEmail, sellerImg, sellerName, yearsUsed, verified } = product;
-    
+
+    const { data: sellers = [], isLoading } = useQuery({
+        queryKey: ['sellers'],
+        queryFn: async () => {
+            const res = await fetch('http://localhost:5000/sellers');
+            const data = await res.json();
+            return data;
+        }
+    })
+
+    if (isLoading) {
+        return <Spinner></Spinner>
+    }
+
 
     return (
         <div className='product'>
-            <div className="mb-5 flex items-center">
-                <div className="avatar mr-3">
-                    <div className="w-12 rounded-full">
-                        <img src={sellerImg} alt=''/>
-                    </div>
-                </div>
-                <div>
-                    <p></p>
-                    <h5 className="font-bold">{sellerName} {verified === "true" && <FaCheckCircle className='inline-block text-primary'></FaCheckCircle>} </h5>
-                    <p className='text-sm'>{sellerEmail}</p>
-                </div>
-            </div>
+            {
+                sellers.map((seller, i) => <div key={i}>
+                    {seller?.email === sellerEmail && <div className="mb-5 flex items-center">
+                        <div className="avatar mr-3">
+                            <div className="w-12 rounded-full">
+                                <img src={sellerImg} alt='' />
+                            </div>
+                        </div>
+                        <div>
+                            <p></p>
+                            <h5 className="font-bold">{sellerName} {seller?.verified === "true" && <FaCheckCircle className='inline-block text-primary'></FaCheckCircle>} </h5>
+                            <p className='text-sm'>{sellerEmail}</p>
+                        </div>
+                    </div>}
+                </div>)
+            }
             <div className="product_img">
                 <img src={img} alt="" />
             </div>

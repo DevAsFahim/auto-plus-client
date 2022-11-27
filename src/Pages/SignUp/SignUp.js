@@ -31,34 +31,35 @@ const SignUp = () => {
                     // create and update user image and name
                     createUser(data.email, data.password)
                         .then((userCredential) => {
-                            const user = userCredential.user;
-                            console.log(user);
+                            const createdUser = userCredential.user;
+                            console.log(createdUser);
                             toast.success('Successfully account created')
                             handleUpdateUserProfile(data.name, imgData.data.url);
+                            // save users to the database
+                            const user = {
+                                name: data.name,
+                                email: data.email,
+                                img: imgData.data.url,
+                                userType: data.userType
+                            }
+                            fetch('http://localhost:5000/users', {
+                                method: 'POST',
+                                headers: {
+                                    'content-type': 'application/json'
+                                },
+                                body: JSON.stringify(user)
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data.acknowledged) {
+                                        navigate('/')
+                                    }
+                                })
                         })
                         .catch((error) => {
                             toast.error(error.message)
                         });
-                    // save users to the database
-                    const user = {
-                        name: data.name,
-                        email: data.email,
-                        img: imgData.data.url,
-                        userType: data.userType
-                    }
-                    fetch('http://localhost:5000/users', {
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify(user)
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if(data.acknowledged){
-                            navigate('/')
-                        }
-                    })
+
                 }
 
             })

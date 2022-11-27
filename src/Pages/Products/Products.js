@@ -8,12 +8,12 @@ import ProductModal from './ProductModal/ProductModal';
 const Products = () => {
     const [singleProduct, setSingleProduct] = useState('');
     const products = useLoaderData();
-    const {user, loading} = useContext(AuthContext)
+    const { user, loading } = useContext(AuthContext)
 
-    if(loading){
+    if (loading) {
         return <Spinner></Spinner>
     }
-    
+
 
     return (
         <div className='py-20 container m-auto px-3'>

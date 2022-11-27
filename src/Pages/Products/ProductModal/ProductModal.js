@@ -62,7 +62,7 @@ const ProductModal = ({ singleProduct, user, setSingleProduct }) => {
                         <input name='resalePrice' type="text" value={`$ ${resalePrice}`} disabled className="input w-full input-bordered" />
                         <input name='phone' type="text" placeholder="Your Phone" className="input w-full input-bordered" required />
                         <input name='meetingLocation' type="text" placeholder="Location" className="input w-full input-bordered" required />
-                        <input type="submit" value="Submit" className='input w-full btn btn-accent font-bold' />
+                        <input type="submit" value="Submit" className='input w-full btn btn-primary font-bold' />
                     </form>
                 </div>
             </div>

@@ -20,7 +20,7 @@
     margin-bottom: 30px;
     color: #000;
 }
-.connect_form .input_photo::file-selector-button {
+.input_photo::file-selector-button {
     border-radius: 20px;
     margin-top: 9px;
     color: green;

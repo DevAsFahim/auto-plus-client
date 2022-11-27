@@ -15,7 +15,7 @@ const Testimonial = () => {
                         <div className="testimonial_user flex items-center">
                             <div className="avatar mr-3">
                                 <div className="w-16 rounded-full">
-                                    <img src="https://placeimg.com/192/192/people" />
+                                    <img src="https://placeimg.com/192/192/people" alt='' />
                                 </div>
                             </div>
                             <div>
