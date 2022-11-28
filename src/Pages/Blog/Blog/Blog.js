@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaLongArrowAltRight } from "react-icons/fa";
 
 const Blog = ({ blog }) => {
     const { _id, title, description, img} = blog;

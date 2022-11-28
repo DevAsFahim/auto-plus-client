@@ -6,13 +6,19 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import useToken from '../../hooks/useToke';
 
 const SignUp = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail)
     const navigate = useNavigate()
-
     const imageHostKey = process.env.REACT_APP_imgbb_key;
+
+    if (token) {
+        navigate('/')
+    }
 
 
     // sign in with email and password 
@@ -33,7 +39,6 @@ const SignUp = () => {
                         .then((userCredential) => {
                             const createdUser = userCredential.user;
                             console.log(createdUser);
-                            toast.success('Successfully account created')
                             handleUpdateUserProfile(data.name, imgData.data.url);
                             // save users to the database
                             const user = {
@@ -52,7 +57,8 @@ const SignUp = () => {
                                 .then(res => res.json())
                                 .then(data => {
                                     if (data.acknowledged) {
-                                        navigate('/')
+                                        setCreatedUserEmail(user.email)
+                                        toast.success('Successfully account created')
                                     }
                                 })
                         })

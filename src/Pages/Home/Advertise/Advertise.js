@@ -27,13 +27,13 @@ const Advertise = () => {
         <div>
             {
                 advertiseItem.length > 0 &&
-                <div className='bg-slate-50'>
+                <div className='bg-slate-50 px-3'>
                     <div className='container  m-auto py-20'>
                         <h3 className="text-3xl font-bold mb-6">Suggestion For You</h3>
                         <div className="carousel py-4 px-3">
                             {
                                 advertiseItem?.map(item => <Link key={item._id} to={`category/${item.categoryId}`}>
-                                    <div className="carousel-item flex flex-col md:w-[300px] mr-6 hover:translate-y-[-7px] transition-all">
+                                    <div className="carousel-item flex flex-col w-[300px] mr-6 hover:translate-y-[-7px] transition-all">
                                         <div className='product'>
                                             <div className="product_img">
                                                 <img src={item.img} alt="" />

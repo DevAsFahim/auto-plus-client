@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthProvider/AuthProvider';
+import useAdmin from '../hooks/useAdmin';
+import useSeller from '../hooks/useSeller';
 import Header from '../Pages/Shared/Header/Header';
-// import { AuthContext } from '../contexts/AuthProvider/AuthProvider';
-// import useAdmin from '../hooks/useAdmin';
 
 const DashboardLayout = () => {
-    // const { user } = useContext(AuthContext)
-    // const [isAdmin] = useAdmin(user?.email)
+    const { user } = useContext(AuthContext)
+    const [isAdmin] = useAdmin(user?.email)
+    const [isSeller] = useSeller(user?.email)
 
     return (
         <div>
@@ -18,17 +20,21 @@ const DashboardLayout = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-                    
+
                     <ul className="menu p-4 w-80 text-base-content bg-base-100">
                         <li><Link to='/dashboard/myorders'>My Orders</Link></li>
-                        <li><Link to='/dashboard/addproduct'>Add A product</Link></li>
-                        <li><Link to='/dashboard/myproducts'>My Products</Link></li>
-                        {/* {
-                            isAdmin && <> */}
+                        {
+                            isSeller && <>
+                                <li><Link to='/dashboard/addproduct'>Add A product</Link></li>
+                                <li><Link to='/dashboard/myproducts'>My Products</Link></li>
+                            </>
+                        }
+                        {
+                            isAdmin && <>
                                 <li><Link to='/dashboard/allsellers'>All Sellers</Link></li>
                                 <li><Link to='/dashboard/allbuyers'>All Buyers</Link></li>
-                            {/* </>
-                        } */}
+                            </>
+                        }
                     </ul>
 
                 </div>

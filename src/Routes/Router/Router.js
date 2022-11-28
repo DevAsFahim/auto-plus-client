@@ -6,13 +6,16 @@ import SingleBlog from "../../Pages/Blog/SingleBlog/SingleBlog";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
+import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Products from "../../Pages/Products/Products";
 import SignUp from "../../Pages/SignUp/SignUp";
+import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import SellerRoute from "../SellerRoute/SellerRoute";
 
 export const router = createBrowserRouter([
     {
@@ -52,23 +55,28 @@ export const router = createBrowserRouter([
         element: <PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
         children: [
             {
+                path: '/dashboard',
+                element: <Dashboard></Dashboard>
+                
+            },
+            {
                 path: '/dashboard/addproduct',
-                element: <AddProduct></AddProduct>
+                element: <SellerRoute><AddProduct></AddProduct></SellerRoute>
                 
             },
             {
                 path: '/dashboard/allbuyers',
-                element: <AllBuyers></AllBuyers>
+                element: <AdminRoute><AllBuyers></AllBuyers></AdminRoute>
                 
             },
             {
                 path: '/dashboard/myproducts',
-                element: <MyProducts></MyProducts>
+                element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
                 
             },
             {
                 path: '/dashboard/allsellers',
-                element: <AllSellers></AllSellers>
+                element: <AdminRoute><AllSellers></AllSellers></AdminRoute>
                 
             }
         ]

@@ -4,14 +4,22 @@ import './Login.css';
 import { FaGoogle } from 'react-icons/fa';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import { toast } from 'react-toastify';
+import useToken from '../../hooks/useToke';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const { userLogIn, createUserWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const [loginUserEmail, setLoginUserEmail] = useState('')
+    const [token] = useToken(loginUserEmail)
 
     const from = location.state?.from?.pathname || '/';
+
+    if (token) {
+        navigate(from, { replace: true })
+        
+    }
 
 
     // log in user with email and password
@@ -26,7 +34,7 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 form.reset()
-                navigate(from, { replace: true })
+                setLoginUserEmail(email)
                 toast.success('Logged in successfully')
             })
             .catch((error) => {
@@ -76,7 +84,7 @@ const Login = () => {
                     </div>
                 </div>
                 <div className="connect_form px-7">
-                    <h1 className='text-4xl font-bold'>Create your account</h1>
+                    <h1 className='text-4xl font-bold'>Login</h1>
                     <form onSubmit={handleLogIn}>
                         <div className="mb-3 form-control">
                             <input type="email" name='email' className=" input input-bordered" placeholder="Your Email" required />
