@@ -3,10 +3,19 @@
 **Live website link**
 [https://auto-plus-fc1d8.web.app/](https://auto-plus-fc1d8.web.app/)
 
+adminEmail: fahim@gmail.com
+adminPassword: asfahim
+
+adminEmail: asfahim@gmail.com
+adminPassword: asfahim
+
+adminEmail: asfahim16@gmail.com
+adminPassword: asfahim
+
 This project is created using `react.js` and `tailwind` as a framework.
 * What's on this website
     * It's a car resale website.
-    * You can add service to database.
+    * You can add Product to database.
     * Added service will show in seller my product page.
     * admin can see all users and sellers.
     * Icons used in this site from `react-icons`.

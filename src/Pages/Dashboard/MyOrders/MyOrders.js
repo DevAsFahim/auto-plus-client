@@ -6,14 +6,14 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 // import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
 import Spinner from '../../Shared/Spinner/Spinner';
 
-const MyProducts = () => {
+const MyOrders = () => {
     const { user, loading } = useContext(AuthContext)
 
-    const { data: myProducts, isLoading, refetch } = useQuery({
-        queryKey: ['myProducts'],
+    const { data: bookings, isLoading, refetch } = useQuery({
+        queryKey: ['bookings'],
         queryFn: async () => {
             try {
-                const res = await fetch(`https://auto-plus-server.vercel.app/myproducts/${user.email}`, {
+                const res = await fetch(`http://localhost:5000/bookings/${user.email}`, {
                     // headers: {
                     //     authorization: `bearer ${localStorage.getItem('accessToken')}`
                     // }
@@ -25,38 +25,39 @@ const MyProducts = () => {
             }
         }
     })
+    console.log(bookings);
 
     const handleAdvertiseProduct = id => {
-        console.log(id);
-        fetch(`https://auto-plus-server.vercel.app/advertise/${id}`, {
-            method: 'PUT',
-            // headers: {
-            //     authorization: `bearer ${localStorage.getItem('accessToken')}`
-            // }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.modifiedCount > 0) {
-                    toast.success('Advertised Successfully')
-                    refetch()
-                }
-            })
+        // console.log(id);
+        // fetch(`https://auto-plus-server.vercel.app/advertise/${id}`, {
+        //     method: 'PUT',
+        //     // headers: {
+        //     //     authorization: `bearer ${localStorage.getItem('accessToken')}`
+        //     // }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data.modifiedCount > 0) {
+        //             toast.success('Advertised Successfully')
+        //             refetch()
+        //         }
+        //     })
     }
 
     const handleDeleteProduct = id => {
-        fetch(`https://auto-plus-server.vercel.app/myproducts/${id}`, {
-            method: 'DELETE',
-            // headers: {
-            //     authorization: `bearer ${localStorage.getItem('accessToken')}`
-            // }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.deletedCount > 0) {
-                    toast.success(`Product deleted successfully`)
-                    refetch()
-                }
-            })
+        // fetch(`https://auto-plus-server.vercel.app/myproducts/${id}`, {
+        //     method: 'DELETE',
+        //     // headers: {
+        //     //     authorization: `bearer ${localStorage.getItem('accessToken')}`
+        //     // }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data.deletedCount > 0) {
+        //             toast.success(`Product deleted successfully`)
+        //             refetch()
+        //         }
+        //     })
     }
 
     if (isLoading || loading) {
@@ -78,13 +79,10 @@ const MyProducts = () => {
                                 Product
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                sale status
+                                Meeting Location
                             </th>
                             <th scope="col" className="py-3 px-6">
                                 Price
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Advertise
                             </th>
                             <th scope="col" className="py-3 px-6">
                                 Action
@@ -93,29 +91,24 @@ const MyProducts = () => {
                     </thead>
                     <tbody>
                         {
-                            myProducts?.map(product => <tr
-                                key={product._id}
+                            bookings?.map(booking => <tr
+                                key={booking._id}
                                 className="bg-white border-b  hover:bg-gray-50 "
                             >
                                 <td className="p-4 w-32">
-                                    <img src={product.img} alt="" />
+                                    <img src={booking.productImg} alt="" />
                                 </td>
                                 <td className="py-4 px-6 font-semibold">
-                                    {product.name}
+                                    {booking.productName}
                                 </td>
                                 <td className="py-4 px-6 capitalize">
-                                    {product.saleStatus}
+                                    {booking.meetingLocation}
                                 </td>
                                 <td className="py-4 px-6 font-semibold">
-                                    ${product.resalePrice}
+                                    ${booking.resalePrice}
                                 </td>
                                 <td className="py-4 px-6">
-                                    {
-                                        product.saleStatus === "available" && <button disabled={product.advertise === "true"} onClick={() => handleAdvertiseProduct(product._id)} className="btn btn-primary btn-xs btn-outline">Advertise</button>
-                                    }
-                                </td>
-                                <td className="py-4 px-6">
-                                    <Link onClick={() => handleDeleteProduct(product._id)} className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</Link>
+                                    <Link onClick={() => handleDeleteProduct(booking._id)} className="btn btn-xs btn-secondary">Pay</Link>
                                 </td>
                             </tr>)
                         }
@@ -126,4 +119,4 @@ const MyProducts = () => {
     );
 };
 
-export default MyProducts;
+export default MyOrders;

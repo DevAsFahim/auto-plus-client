@@ -2,7 +2,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 
 const ProductModal = ({ singleProduct, user, setSingleProduct }) => {
-    const {name: productName, resalePrice, categoryId, sellerEmail, sellerImg, sellerName, sellerPhone} = singleProduct;
+    const {name: productName, img, resalePrice, categoryId, sellerEmail, sellerImg, sellerName, sellerPhone} = singleProduct;
     
     const handleBooking = event => {
         event.preventDefault();
@@ -24,7 +24,8 @@ const ProductModal = ({ singleProduct, user, setSingleProduct }) => {
             sellerEmail,
             sellerImg,
             sellerName,
-            sellerPhone
+            sellerPhone,
+            productImg: img
         }
 
         // send booking information to database
