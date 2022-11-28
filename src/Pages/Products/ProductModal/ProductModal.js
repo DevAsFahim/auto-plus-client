@@ -28,7 +28,7 @@ const ProductModal = ({ singleProduct, user, setSingleProduct }) => {
         }
 
         // send booking information to database
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://auto-plus-server.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

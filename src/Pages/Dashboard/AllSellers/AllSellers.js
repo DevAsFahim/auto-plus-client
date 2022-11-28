@@ -9,7 +9,7 @@ const AllSellers = () => {
     const { data: sellers = [], refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/sellers', {
+            const res = await fetch('https://auto-plus-server.vercel.app/sellers', {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -20,7 +20,7 @@ const AllSellers = () => {
     })
 
     const handleMakeSeller = id => {
-        fetch(`http://localhost:5000/seller/${id}`, {
+        fetch(`https://auto-plus-server.vercel.app/seller/${id}`, {
             method: 'PUT',
             // headers: {
             //     authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -36,7 +36,7 @@ const AllSellers = () => {
     }
 
     const handleDeleteSeller = id => {
-        fetch(`http://localhost:5000/seller/${id}`, {
+        fetch(`https://auto-plus-server.vercel.app/seller/${id}`, {
             method: 'DELETE',
             // headers: {
             //     authorization: `bearer ${localStorage.getItem('accessToken')}`

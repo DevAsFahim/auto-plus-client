@@ -9,14 +9,14 @@ const AllBuyers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users');
+            const res = await fetch('https://auto-plus-server.vercel.app/users');
             const data = await res.json();
             return data;
         }
     })
 
     const handleDeleteUser = id => {
-        fetch(`http://localhost:5000/user/${id}`, {
+        fetch(`https://auto-plus-server.vercel.app/user/${id}`, {
             method: 'DELETE',
             // headers: {
             //     authorization: `bearer ${localStorage.getItem('accessToken')}`
