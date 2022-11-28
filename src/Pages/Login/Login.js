@@ -5,6 +5,7 @@ import { FaGoogle } from 'react-icons/fa';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import { toast } from 'react-toastify';
 import useToken from '../../hooks/useToke';
+import Spinner from '../Shared/Spinner/Spinner';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -13,6 +14,7 @@ const Login = () => {
     const location = useLocation();
     const [loginUserEmail, setLoginUserEmail] = useState('')
     const [token] = useToken(loginUserEmail)
+    const [isConnectLoading, setIsConnectLoading] = useState(false)
 
     const from = location.state?.from?.pathname || '/';
 
@@ -28,6 +30,7 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
+        setIsConnectLoading(true)
 
         userLogIn(email, password)
             .then((result) => {
@@ -36,6 +39,7 @@ const Login = () => {
                 form.reset()
                 setLoginUserEmail(email)
                 toast.success('Logged in successfully')
+                setIsConnectLoading(false)
             })
             .catch((error) => {
                 toast.error(error.message)
@@ -72,6 +76,10 @@ const Login = () => {
                 console.error(error);
                 toast.error(error.message)
             });
+    }
+
+    if(isConnectLoading){
+        return <Spinner></Spinner>
     }
 
     return (

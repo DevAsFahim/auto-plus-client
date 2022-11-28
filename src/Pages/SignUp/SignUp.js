@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useToken from '../../hooks/useToke';
+import Spinner from '../Shared/Spinner/Spinner';
 
 const SignUp = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -15,6 +16,7 @@ const SignUp = () => {
     const [token] = useToken(createdUserEmail)
     const navigate = useNavigate()
     const imageHostKey = process.env.REACT_APP_imgbb_key;
+    const [isConnectLoading, setIsConnectLoading] = useState(false)
 
     if (token) {
         navigate('/')
@@ -26,6 +28,7 @@ const SignUp = () => {
         const image = data.image[0]
         const formData = new FormData();
         formData.append('image', image)
+        setIsConnectLoading(true)
         const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
         fetch(url, {
             method: 'POST',
@@ -59,6 +62,7 @@ const SignUp = () => {
                                     if (data.acknowledged) {
                                         setCreatedUserEmail(user.email)
                                         toast.success('Successfully account created')
+                                        setIsConnectLoading(false)
                                     }
                                 })
                         })
@@ -79,6 +83,10 @@ const SignUp = () => {
         updateUserProfile(profile)
             .then(() => { })
             .catch(error => console.error(error))
+    }
+
+    if(isConnectLoading){
+        return <Spinner></Spinner>
     }
 
 

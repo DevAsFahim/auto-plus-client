@@ -1,3 +1,41 @@
+# Auto Plus
+
+**Live website link**
+[https://auto-plus-fc1d8.web.app/](https://auto-plus-fc1d8.web.app/)
+
+This project is created using `react.js` and `tailwind` as a framework.
+* What's on this website
+    * It's a car resale website.
+    * You can add service to database.
+    * Added service will show in seller my product page.
+    * admin can see all users and sellers.
+    * Icons used in this site from `react-icons`.
+    * User can login or register in this account.
+    * Loaded data from API.
+    * `React-router` used in here.
+    * Used `loader` from react-router to get data.
+    * firebase used as a database.
+
+* Technology used
+    * `React.js`
+    * `MongoDB`
+    * `Firebase`
+    * `tailwind`
+    * `daisy UI`
+    * `npm`
+    * `react-photo-view`
+    * `API`
+    * `react-router-dom`
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
