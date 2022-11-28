@@ -50,7 +50,7 @@ const SignUp = () => {
                                 img: imgData.data.url,
                                 userType: data.userType
                             }
-                            fetch('https://auto-plus-server.vercel.app/users', {
+                            fetch('https://auto-plus-server-devasfahim.vercel.app/users', {
                                 method: 'POST',
                                 headers: {
                                     'content-type': 'application/json'

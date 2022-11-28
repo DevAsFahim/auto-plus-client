@@ -29,7 +29,7 @@ const ProductModal = ({ singleProduct, user, setSingleProduct }) => {
         }
 
         // send booking information to database
-        fetch('https://auto-plus-server.vercel.app/bookings', {
+        fetch('https://auto-plus-server-devasfahim.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

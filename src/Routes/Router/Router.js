@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
             {
                 path: '/blogs/:id',
                 element: <SingleBlog></SingleBlog>,
-                loader: ({params}) => fetch(`https://auto-plus-server.vercel.app/blogs/${params.id}`)
+                loader: ({params}) => fetch(`https://auto-plus-server-devasfahim.vercel.app/blogs/${params.id}`)
             },
             {
                 path: '/signup',
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <PrivateRoutes><Products></Products></PrivateRoutes>,
-                loader: ({params}) => fetch(`https://auto-plus-server.vercel.app/product/${params.id}`)
+                loader: ({params}) => fetch(`https://auto-plus-server-devasfahim.vercel.app/product/${params.id}`)
             }
         ]
     },

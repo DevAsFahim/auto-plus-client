@@ -13,7 +13,7 @@ const MyWishlist = () => {
         queryKey: ['wishes'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/wishlist/${user.email}`, {
+                const res = await fetch(`https://auto-plus-server-devasfahim.vercel.app/wishlist/${user.email}`, {
                     // headers: {
                     //     authorization: `bearer ${localStorage.getItem('accessToken')}`
                     // }

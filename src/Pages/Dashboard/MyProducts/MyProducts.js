@@ -13,7 +13,7 @@ const MyProducts = () => {
         queryKey: ['myProducts'],
         queryFn: async () => {
             try {
-                const res = await fetch(`https://auto-plus-server.vercel.app/myproducts/${user.email}`, {
+                const res = await fetch(`https://auto-plus-server-devasfahim.vercel.app/myproducts/${user.email}`, {
                     // headers: {
                     //     authorization: `bearer ${localStorage.getItem('accessToken')}`
                     // }
@@ -28,7 +28,7 @@ const MyProducts = () => {
 
     const handleAdvertiseProduct = id => {
         console.log(id);
-        fetch(`https://auto-plus-server.vercel.app/advertise/${id}`, {
+        fetch(`https://auto-plus-server-devasfahim.vercel.app/advertise/${id}`, {
             method: 'PUT',
             // headers: {
             //     authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -44,7 +44,7 @@ const MyProducts = () => {
     }
 
     const handleDeleteProduct = id => {
-        fetch(`https://auto-plus-server.vercel.app/myproducts/${id}`, {
+        fetch(`https://auto-plus-server-devasfahim.vercel.app/myproducts/${id}`, {
             method: 'DELETE',
             // headers: {
             //     authorization: `bearer ${localStorage.getItem('accessToken')}`

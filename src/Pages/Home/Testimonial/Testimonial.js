@@ -8,7 +8,7 @@ const Testimonial = () => {
     const { data: testimonials = [], isLoading } = useQuery({
         queryKey: ['testimonials'],
         queryFn: async () => {
-            const res = await fetch('https://auto-plus-server.vercel.app/testimonials');
+            const res = await fetch('https://auto-plus-server-devasfahim.vercel.app/testimonials');
             const data = await res.json();
             return data;
         }

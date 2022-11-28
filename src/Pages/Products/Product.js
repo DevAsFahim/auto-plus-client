@@ -13,7 +13,7 @@ const Product = ({ product, setSingleProduct }) => {
     const { data: sellers = [], isLoading } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch('https://auto-plus-server.vercel.app/sellers');
+            const res = await fetch('https://auto-plus-server-devasfahim.vercel.app/sellers');
             const data = await res.json();
             return data;
         }
@@ -38,7 +38,7 @@ const Product = ({ product, setSingleProduct }) => {
             categoryId
         }
 
-        fetch('http://localhost:5000/wishlist', {
+        fetch('https://auto-plus-server-devasfahim.vercel.app/wishlist', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

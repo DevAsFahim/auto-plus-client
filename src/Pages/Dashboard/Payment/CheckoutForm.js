@@ -14,7 +14,7 @@ const CheckoutForm = ({ booking }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("https://auto-plus-server.vercel.app/create-payment-intent", {
+        fetch("https://auto-plus-server-devasfahim.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const CheckoutForm = ({ booking }) => {
                 bookingId: _id
             }
 
-            fetch('https://auto-plus-server.vercel.app/payments', {
+            fetch('https://auto-plus-server-devasfahim.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

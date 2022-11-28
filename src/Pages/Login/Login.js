@@ -57,7 +57,7 @@ const Login = () => {
                     img: loggedUser.photoURL,
                     userType: 'user'
                 }
-                fetch('https://auto-plus-server.vercel.app/users', {
+                fetch('https://auto-plus-server-devasfahim.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

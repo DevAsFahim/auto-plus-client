@@ -9,7 +9,7 @@ const Advertise = () => {
         queryKey: ['advertiseItem'],
         queryFn: async () => {
             try {
-                const res = await fetch('https://auto-plus-server.vercel.app/advertise')
+                const res = await fetch('https://auto-plus-server-devasfahim.vercel.app/advertise')
                 const data = await res.json();
                 return data;
             }
