@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Product.css';
 import { FaCheckCircle, FaMapMarkedAlt, FaStopwatch } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../Shared/Spinner/Spinner';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const Product = ({ product, setSingleProduct }) => {
-    const { img, location, name, originalPrice, postTime, resalePrice, sellerEmail, sellerImg, sellerName, yearsUsed, verified } = product;
+    const { user } = useContext(AuthContext);
+    const { img, location, name, originalPrice, categoryId, postTime, resalePrice, sellerEmail, sellerImg, sellerName, yearsUsed, verified } = product;
 
     const { data: sellers = [], isLoading } = useQuery({
         queryKey: ['sellers'],
@@ -15,6 +18,43 @@ const Product = ({ product, setSingleProduct }) => {
             return data;
         }
     })
+
+
+
+    const handleAddToWish = () => {
+        const wishList = {
+            img,
+            location,
+            name,
+            originalPrice,
+            resalePrice,
+            sellerEmail,
+            sellerImg,
+            sellerName,
+            yearsUsed,
+            userName: user?.displayName,
+            userEmail: user?.email,
+            userImg: user?.photoURL,
+            categoryId
+        }
+
+        fetch('http://localhost:5000/wishlist', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(wishList)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Added to Wishlist')
+                }
+                else {
+                    toast.error(data.message)
+                }
+            })
+    }
 
     if (isLoading) {
         return <Spinner></Spinner>
@@ -54,6 +94,7 @@ const Product = ({ product, setSingleProduct }) => {
                 <p>{Response}</p>
                 <div>
                     <label onClick={() => setSingleProduct(product)} htmlFor="productModal" className="btn btn-primary w-full mt-9" >Book Now</label>
+                    <label onClick={handleAddToWish} className="btn btn-secondary w-full mt-3" >Wish List</label>
                 </div>
             </div>
         </div>

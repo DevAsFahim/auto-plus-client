@@ -88,7 +88,7 @@ const Login = () => {
                 <div className="connect_img hidden md:block">
                     <div className="text-center mt-48 bg-white bg-opacity-20 backdrop-blur-md rounded drop-shadow-lg py-8 px-4 mx-10">
                         <h2 className="text-3xl text-white font-semibold mb-4">New on this website?</h2>
-                        <Link to='/signup'><button className='btn'>Sign Up</button></Link>
+                        <Link to='/signup'><button className='btn btn-primary'>Sign Up</button></Link>
                     </div>
                 </div>
                 <div className="connect_form px-7">
@@ -100,9 +100,9 @@ const Login = () => {
                         <div className="mb-3 form-control">
                             <input type="password" name='password' className="input input-bordered" placeholder="Your Password" required />
                         </div>
-                        <button className="btn default-btn mb-8 d-block w-full">Login</button>
+                        <button className="btn btn-primary mb-8 d-block w-full">Login</button>
                     </form>
-                    <button onClick={handleGoogleUser} className="btn mt-2 btn-outline d-block w-full"> <FaGoogle className='mr-3'></FaGoogle> Login with Google</button>
+                    <button onClick={handleGoogleUser} className="btn mt-2 btn-outline d-block w-full text-blue-600"> <FaGoogle className='mr-3'></FaGoogle> Login with Google</button>
                 </div>
             </div>
         </div>

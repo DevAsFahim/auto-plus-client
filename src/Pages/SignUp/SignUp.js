@@ -96,7 +96,7 @@ const SignUp = () => {
                 <div className="connect_img hidden md:block">
                     <div className="text-center mt-48 bg-white bg-opacity-20 backdrop-blur-md rounded drop-shadow-lg py-8 px-4 mx-10">
                         <h2 className="text-3xl text-white font-semibold mb-4">Already have an account?</h2>
-                        <Link to='/login'><button className='btn'>Login</button></Link>
+                        <Link to='/login'><button className='btn btn-primary'>Login</button></Link>
                     </div>
                 </div>
                 <div className="connect_form px-7">
@@ -118,7 +118,7 @@ const SignUp = () => {
                         <div className="mb-3 form-control">
                             <input type="file" {...register("image", { required: true })} className="input input_photo input-bordered" placeholder="Photo URL" />
                         </div>
-                        <button className="btn default-btn d-block w-full mt-4">Sign Up</button>
+                        <button className="btn btn-primary d-block w-full mt-4">Sign Up</button>
                     </form>
                 </div>
             </div>
