@@ -6,7 +6,7 @@ import Product from './Product';
 import ProductModal from './ProductModal/ProductModal';
 
 const Products = () => {
-    const [singleProduct, setSingleProduct] = useState('');
+    const [singleProduct, setSingleProduct] = useState(null);
     const products = useLoaderData();
     const { user, loading } = useContext(AuthContext)
 
@@ -27,11 +27,15 @@ const Products = () => {
                     ></Product>)
                 }
             </div>
-            <ProductModal
-                singleProduct={singleProduct}
-                user={user}
-                setSingleProduct={setSingleProduct}
-            ></ProductModal>
+            <div>
+                {
+                    singleProduct && <ProductModal
+                        singleProduct={singleProduct}
+                        user={user}
+                        setSingleProduct={setSingleProduct}
+                    ></ProductModal>
+                }
+            </div>
         </div>
     );
 };

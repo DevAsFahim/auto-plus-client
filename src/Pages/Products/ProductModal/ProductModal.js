@@ -40,7 +40,7 @@ const ProductModal = ({ singleProduct, user, setSingleProduct }) => {
         .then(data => {
             if(data.acknowledged){
                 toast.success('booking confirmed')
-                setSingleProduct('')
+                setSingleProduct(null)
             }
             else{
                 toast.error(data.message)

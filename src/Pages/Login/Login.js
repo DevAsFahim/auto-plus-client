@@ -20,7 +20,6 @@ const Login = () => {
 
     if (token) {
         navigate(from, { replace: true })
-        
     }
 
 
