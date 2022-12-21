@@ -20,10 +20,10 @@ const Header = () => {
             user?.uid ?
                 <>
                     <li><Link to='/dashboard'>Dashboard</Link></li>
-                    <li><button onClick={handleLogOut} className='btn btn-secondary ml-5'>Sign Out</button></li>
+                    <li><button onClick={handleLogOut} className='btn btn-secondary ml-5 text-white'>Sign Out</button></li>
                 </> 
                 :
-                <li><Link to='/login'  className='btn btn-secondary ml-5'>Login</Link></li>
+                <li><Link to='/login'  className='btn btn-secondary ml-5 text-white'>Login</Link></li>
         }
 
     </React.Fragment>
